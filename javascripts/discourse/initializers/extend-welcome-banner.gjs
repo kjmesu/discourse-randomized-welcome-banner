@@ -1,6 +1,6 @@
 import { apiInitializer } from "discourse/lib/api";
 import { settings } from "virtual:theme";
-import i18n from "discourse-i18n";
+import I18n from "discourse-i18n";
 import { sanitize } from "discourse/lib/text";
 import { prioritizeNameFallback } from "discourse/lib/settings";
 
@@ -63,7 +63,7 @@ export default apiInitializer((api) => {
             };
           }
 
-          return i18n(randomMessage, args);
+          return I18n.interpolate(randomMessage, args);
         }
 
         return super.headerText;
