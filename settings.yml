@@ -1,0 +1,25 @@
+enable_randomized_banner:
+  type: bool
+  default: true
+  description: "Enable randomized welcome banner messages"
+
+random_banner_new_members:
+  type: list
+  list_type: simple
+  default: ""
+  description: "Welcome messages for new members (first visit). One message per line. Leave empty to use core banner defaults."
+  textarea: true
+
+random_banner_logged_in:
+  type: list
+  list_type: simple
+  default: ""
+  description: "Welcome messages for returning logged-in members. One message per line. Leave empty to use core banner defaults."
+  textarea: true
+
+random_banner_anonymous:
+  type: list
+  list_type: simple
+  default: ""
+  description: "Welcome messages for anonymous visitors (not logged in). One message per line. Leave empty to use core banner defaults."
+  textarea: true
