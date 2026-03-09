@@ -1,5 +1,8 @@
 import { apiInitializer } from "discourse/lib/api";
 import { settings } from "virtual:theme";
+import i18n from "discourse-i18n";
+import { sanitize } from "discourse/lib/text";
+import { prioritizeNameFallback } from "discourse/lib/settings";
 
 export default apiInitializer((api) => {
   api.modifyClass("component:welcome-banner", (Superclass) =>
@@ -43,7 +46,24 @@ export default apiInitializer((api) => {
         const randomMessage = this.getRandomMessage(settingMap[userType]);
 
         if (randomMessage) {
-          return randomMessage;
+          const site_name = this.siteSettings.title || "";
+
+          let args;
+          if (!this.currentUser) {
+            args = { site_name };
+          } else {
+            args = {
+              site_name,
+              preferred_display_name: sanitize(
+                prioritizeNameFallback(
+                  this.currentUser.name,
+                  this.currentUser.username
+                )
+              ),
+            };
+          }
+
+          return i18n(randomMessage, args);
         }
 
         return super.headerText;
